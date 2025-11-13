@@ -1,5 +1,5 @@
+syntax = "proto3";
 package oj.demo.user;
-edition = "2024";
 option java_package = "oj.demo.user.api.delete";
 option java_multiple_files = true;
 
@@ -8,9 +8,9 @@ message DeleteUserRequest {
 }
 
 enum DeleteUserStatus {
-    SUCCESS = 0;
-    PASSWORD_INCORRECT = 1;
-    ARG_INVALID = 2;
+    DELETE_USER_STATUS_SUCCESS = 0;
+    DELETE_USER_STATUS_PASSWORD_INCORRECT = 1;
+    DELETE_USER_STATUS_ARG_INVALID = 2;
 }
 
 message DeleteUserResponse {

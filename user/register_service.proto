@@ -1,5 +1,5 @@
+syntax = "proto3";
 package oj.demo.user;
-edition = "2024";
 option java_package = "oj.demo.user.api.register";
 option java_multiple_files = true;
 
@@ -11,10 +11,10 @@ message RegisterRequest {
 
 enum RegisterStatus {
     REGISTER_STATUS_SUCCESS = 0;
-    EMAIL_ALREADY_EXISTS = 1;
-    CODE_INVALID = 2;
-    ARGS_INVALID = 3;
-    TOO_MANY_REQUESTS = 4;
+    REGISTER_STATUS_EMAIL_ALREADY_EXISTS = 1;
+    REGISTER_STATUS_CODE_INVALID = 2;
+    REGISTER_STATUS_ARGS_INVALID = 3;
+    REGISTER_STATUS_TOO_MANY_REQUESTS = 4;
 }
 
 message RegisterResponse {

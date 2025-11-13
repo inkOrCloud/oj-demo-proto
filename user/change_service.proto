@@ -1,5 +1,5 @@
+syntax = "proto3";
 package oj.demo.user;
-edition = "2024";
 option java_package = "oj.demo.user.api.change";
 option java_multiple_files = true;
 
@@ -10,11 +10,11 @@ message ChangeRequest {
 }
 
 enum ChangeStatus {
-    SUCCESS = 0;
-    OLD_PASSWORD_INCORRECT = 1;
-    ARGS_INVALID = 2;
-    TOO_MANY_REQUESTS = 3;
-    REFRESH_TOKEN_INVALID = 4;
+    CHANGE_STATUS_SUCCESS = 0;
+    CHANGE_STATUS_OLD_PASSWORD_INCORRECT = 1;
+    CHANGE_STATUS_ARGS_INVALID = 2;
+    CHANGE_STATUS_TOO_MANY_REQUESTS = 3;
+    CHANGE_STATUS_REFRESH_TOKEN_INVALID = 4;
 }
 
 message ChangeResponse {

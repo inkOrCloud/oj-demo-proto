@@ -1,15 +1,15 @@
+syntax = "proto3";
 package oj.demo.user;
-edition = "2024";
 option java_package = "oj.demo.user.api.reset";
 option java_multiple_files = true;
 
-enum AcoountType {
-    ID = 1;
-    EMAIL = 2;
+enum AccountType {
+    ACCOUNT_TYPE_ID = 0;
+    ACCOUNT_TYPE_EMAIL = 1;
 }
 
 message ResetRequest {
-    AcoountType type = 1;
+    AccountType type = 1;
     string code = 2;
     string new_password = 3;
     int64 timestamp = 4;
@@ -17,10 +17,10 @@ message ResetRequest {
 }
 
 enum ResetStatus {
-    SUCCESS = 0;
-    INVALID_CODE = 1;
-    EXPIRED_CODE = 2;
-    ARG_INVALID = 3;
+    RESET_STATUS_SUCCESS = 0;
+    RESET_STATUS_INVALID_CODE = 1;
+    RESET_STATUS_EXPIRED_CODE = 2;
+    RESET_STATUS_ARG_INVALID = 3;
 }
 
 message ResetResponse {

@@ -1,5 +1,5 @@
+syntax = "proto3";
 package oj.demo.user;
-edition = "2024";
 option java_package = "oj.demo.user.api.dto";
 option java_multiple_files = true;
 

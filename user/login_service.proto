@@ -1,5 +1,5 @@
+syntax = "proto3";
 package oj.demo.user;
-edition = "2024";
 option java_package = "oj.demo.user.api.login";
 option java_multiple_files = true;
 
@@ -19,10 +19,10 @@ message LoginRequest {
 
 enum LoginStatus {
     LOGIN_STATUS_SUCCESS = 0;
-    PASSWD_INCORRECT = 1;
-    ACCOUNT_NOT_EXIST = 2;
-    ARGS_INVALID = 3;
-    TOO_MANY_REQUESTS = 4;
+    LOGIN_STATUS_PASSWD_INCORRECT = 1;
+    LOGIN_STATUS_ACCOUNT_NOT_EXIST = 2;
+    LOGIN_STATUS_ARGS_INVALID = 3;
+    LOGIN_STATUS_TOO_MANY_REQUESTS = 4;
 }
 
 message LoginResponse {
@@ -39,8 +39,8 @@ message RefreshTokenRequest {
 enum RefreshTokenStatus {
     REFRESH_TOKEN_STATUS_SUCCESS = 0;
     REFRESH_TOKEN_INVALID = 1;
-    ARGS_INVALID = 2;
-    TOO_MANY_REQUESTS = 3;
+    REFRESH_TOKEN_ARGS_INVALID = 2;
+    REFRESH_TOKEN_TOO_MANY_REQUESTS = 3;
 }
 
 message RefreshTokenResonse {
