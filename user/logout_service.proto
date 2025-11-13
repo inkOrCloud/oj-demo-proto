@@ -1,0 +1,21 @@
+package oj.demo.user;
+edition = "2024";
+option java_package = "oj.demo.user.api.logout";
+option java_multiple_files = true;
+
+message LogoutRequest {
+    string refresh_token = 1;
+}
+
+enum LogoutStaus {
+    SUCCESS = 0;
+    INVALID_TOKEN = 1;
+}
+
+message LogoutResponse {
+    LogoutStaus status = 1;
+}
+
+service LogoutService {
+    rpc Logout(LogoutRequest) returns (LogoutResponse);
+}

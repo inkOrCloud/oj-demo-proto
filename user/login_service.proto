@@ -1,0 +1,55 @@
+package oj.demo.user;
+edition = "2024";
+option java_package = "oj.demo.user.api.login";
+option java_multiple_files = true;
+
+enum LoginType {
+    LOGIN_TYPE_ID = 0;
+    LOGIN_TYPE_EMAIL = 1;
+}
+
+message LoginRequest {
+    LoginType login_type = 1;
+    oneof account {
+        int32 id = 2;
+        string email = 3;
+    }
+    string password = 4;
+}
+
+enum LoginStatus {
+    LOGIN_STATUS_SUCCESS = 0;
+    PASSWD_INCORRECT = 1;
+    ACCOUNT_NOT_EXIST = 2;
+    ARGS_INVALID = 3;
+    TOO_MANY_REQUESTS = 4;
+}
+
+message LoginResponse {
+    LoginStatus status = 1;
+    int32 user_id = 2;
+    string refresh_token = 3;
+    string access_token = 4;
+}
+
+message RefreshTokenRequest {
+    string refresh_token = 1;
+}
+
+enum RefreshTokenStatus {
+    REFRESH_TOKEN_STATUS_SUCCESS = 0;
+    REFRESH_TOKEN_INVALID = 1;
+    ARGS_INVALID = 2;
+    TOO_MANY_REQUESTS = 3;
+}
+
+message RefreshTokenResonse {
+    RefreshTokenStatus status = 1;
+    int32 user_id = 2;
+    string access_token = 3;
+}
+
+service LoginService {
+    rpc Login (LoginRequest) returns (LoginResponse);
+    rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResonse);
+}

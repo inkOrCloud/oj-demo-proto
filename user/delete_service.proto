@@ -1,0 +1,22 @@
+package oj.demo.user;
+edition = "2024";
+option java_package = "oj.demo.user.api.delete";
+option java_multiple_files = true;
+
+message DeleteUserRequest {
+    string password = 1;
+}
+
+enum DeleteUserStatus {
+    SUCCESS = 0;
+    PASSWORD_INCORRECT = 1;
+    ARG_INVALID = 2;
+}
+
+message DeleteUserResponse {
+    DeleteUserStatus status = 1;
+}
+
+service DeleteUserService {
+    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+}

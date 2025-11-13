@@ -1,0 +1,26 @@
+package oj.demo.user;
+edition = "2024";
+option java_package = "oj.demo.user.api.change";
+option java_multiple_files = true;
+
+message ChangeRequest {
+    string old_password = 1;
+    string new_password = 2;
+    string refresh_token = 3;
+}
+
+enum ChangeStatus {
+    SUCCESS = 0;
+    OLD_PASSWORD_INCORRECT = 1;
+    ARGS_INVALID = 2;
+    TOO_MANY_REQUESTS = 3;
+    REFRESH_TOKEN_INVALID = 4;
+}
+
+message ChangeResponse {
+    ChangeStatus status = 1;
+}
+
+service ChangeService {
+    rpc ChangePassword(ChangeRequest) returns (ChangeResponse);
+}

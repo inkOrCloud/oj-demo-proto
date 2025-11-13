@@ -1,0 +1,25 @@
+package oj.demo.user;
+edition = "2024";
+option java_package = "oj.demo.user.api.dto";
+option java_multiple_files = true;
+
+message User {
+    int32 id = 1;
+    bytes passwd_hash = 2;
+    string salt = 3;
+    string email = 4;
+    int64 create_time = 5;
+    int64 update_time = 6;
+    int64 delete_time = 7;
+}
+
+message UserProfile {
+    int32 id = 1;
+    int32 user_id = 2;
+    string username = 3;
+    string bio = 4;
+    int64 avatar_file_id = 5;
+    int64 create_time = 6;
+    int64 update_time = 7;
+    int64 delete_time = 8;
+}

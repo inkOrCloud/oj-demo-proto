@@ -1,0 +1,33 @@
+package oj.demo.user;
+edition = "2024";
+option java_package = "oj.demo.user.api.reset";
+option java_multiple_files = true;
+
+enum AcoountType {
+    ID = 1;
+    EMAIL = 2;
+}
+
+message ResetRequest {
+    AcoountType type = 1;
+    string code = 2;
+    string new_password = 3;
+    int64 timestamp = 4;
+    int32 nonce = 5;
+}
+
+enum ResetStatus {
+    SUCCESS = 0;
+    INVALID_CODE = 1;
+    EXPIRED_CODE = 2;
+    ARG_INVALID = 3;
+}
+
+message ResetResponse {
+    ResetStatus status = 1;
+    int32 user_id = 2;
+}
+
+service ResetService {
+    rpc ResetPassword(ResetRequest) returns (ResetResponse);
+}

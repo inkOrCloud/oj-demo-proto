@@ -1,0 +1,25 @@
+package oj.demo.user.profile;
+
+import "user.proto";
+
+option java_package = "oj.demo.user.api.profile.update";
+option java_multiple_files = true;
+
+enum UpdateStaus {
+    SUCESS = 1;
+    ARG_INVALID = 2;
+}
+
+message UpdateAvatarRequest {
+    int64 file_id = 1;
+}
+
+message UpdateProfileResponse {
+    UpdateStaus status = 1;
+    UserProfile profile = 2;
+}
+
+service UpdateService {
+    rpc UpdateProfile (UserProfile) returns (UpdateProfileResponse); 
+    rpc UpdateAvatar (UpdateAvatarRequest) returns (UpdateProfileResponse);
+}
