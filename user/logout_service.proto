@@ -7,13 +7,13 @@ message LogoutRequest {
     string refresh_token = 1;
 }
 
-enum LogoutStaus {
-    LOGOUT_STAUS_SUCCESS = 0;
+enum LogoutStatus {
+    LOGOUT_STATUS_SUCCESS = 0;
     LOGOUT_STATUS_INVALID_TOKEN = 1;
 }
 
 message LogoutResponse {
-    LogoutStaus status = 1;
+    LogoutStatus status = 1;
 }
 
 service LogoutService {

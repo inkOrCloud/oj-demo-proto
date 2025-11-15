@@ -1,13 +1,13 @@
 syntax = "proto3";
 package oj.demo.user.profile;
 
-import "user/user.proto";
+import "user.user.proto";
 
 option java_package = "oj.demo.user.api.profile.update";
 option java_multiple_files = true;
 
-enum UpdateStaus {
-    UPDATE_STATUS_SUCESS = 0;
+enum UpdateStatus {
+    UPDATE_STATUS_SUCCESS = 0;
     UPDATE_STATUS_ARG_INVALID = 1;
 }
 
@@ -16,7 +16,7 @@ message UpdateAvatarRequest {
 }
 
 message UpdateProfileResponse {
-    UpdateStaus status = 1;
+    UpdateStatus status = 1;
     UserProfile profile = 2;
 }
 
