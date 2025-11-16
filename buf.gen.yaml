@@ -1,7 +1,0 @@
-version: v2
-clean: true
-plugins:
-  - remote: buf.build/protocolbuffers/java:v33.1
-    out: gen
-  - remote: buf.build/grpc/java:v1.76.0
-    out: gen
