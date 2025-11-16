@@ -1,0 +1,28 @@
+syntax = "proto3";
+package oj.demo.user.v1;
+
+import "oj/demo/user/v1/user.proto";
+
+option java_multiple_files = true;
+option java_package = "oj.demo.user.api.v1.profile";
+
+enum UpdateStatus {
+  UPDATE_STATUS_SUCCESS_UNSPECIFIED = 0;
+  UPDATE_STATUS_ARG_INVALID = 1;
+}
+
+message UpdateAvatarRequest {
+  string filename = 1;
+  bytes data = 2;
+  string mime_type = 3;
+}
+
+message UpdateProfileResponse {
+  UpdateStatus status = 1;
+  UserProfile profile = 2;
+}
+
+service UpdateService {
+  rpc UpdateProfile(UserProfile) returns (UpdateProfileResponse);
+  rpc UpdateAvatar(UpdateAvatarRequest) returns (UpdateProfileResponse);
+}

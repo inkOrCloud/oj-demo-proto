@@ -1,0 +1,22 @@
+syntax = "proto3";
+package oj.demo.user.v1;
+
+option java_multiple_files = true;
+option java_package = "oj.demo.user.api.v1.logout";
+
+message LogoutRequest {
+  string refresh_token = 1;
+}
+
+enum LogoutStatus {
+  LOGOUT_STATUS_SUCCESS_UNSPECIFIED = 0;
+  LOGOUT_STATUS_INVALID_TOKEN = 1;
+}
+
+message LogoutResponse {
+  LogoutStatus status = 1;
+}
+
+service LogoutService {
+  rpc Logout(LogoutRequest) returns (LogoutResponse);
+}

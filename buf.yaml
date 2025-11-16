@@ -1,0 +1,15 @@
+# For details on buf.yaml configuration, visit https://buf.build/docs/configuration/v2/buf-yaml
+version: v2
+lint:
+  use:
+    - STANDARD
+  ignore_only:
+    RPC_REQUEST_RESPONSE_UNIQUE:
+      - oj/demo/user/v1/update_service.proto
+    RPC_REQUEST_STANDARD_NAME:
+      - oj/demo/user/v1/update_service.proto
+    RPC_RESPONSE_STANDARD_NAME:
+      - oj/demo/user/v1/update_service.proto
+breaking:
+  use:
+    - FILE
