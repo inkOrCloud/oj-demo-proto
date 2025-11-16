@@ -12,7 +12,9 @@ enum UpdateStatus {
 }
 
 message UpdateAvatarRequest {
-    int64 file_id = 1;
+    string filename = 1;
+    bytes data = 2;
+    string mime_type = 3;
 }
 
 message UpdateProfileResponse {
