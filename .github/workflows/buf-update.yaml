@@ -1,6 +1,7 @@
 name: Buf Export Pipeline
 
 on:
+  workflow_dispatch:  # 允许手动触发
   push:
     branches: [buf]  # 仅当 buf 分支有更新时触发
 
