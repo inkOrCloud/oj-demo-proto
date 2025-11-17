@@ -1,0 +1,27 @@
+syntax = "proto3";
+package oj.demo.user.v1;
+
+import "buf/validate/validate.proto";
+
+message RegisterRequest {
+  string email = 1;
+  string password = 2 [
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 20,
+    (buf.validate.field).string.pattern = "^[a-zA-Z0-9!@#$%^&*_]+$"
+  ];
+  string code = 3 [(buf.validate.field).string.len = 6];
+}
+
+enum RegisterStatus {
+  REGISTER_STATUS_SUCCESS_UNSPECIFIED = 0;
+  REGISTER_STATUS_EMAIL_ALREADY_EXISTS = 1;
+  REGISTER_STATUS_CODE_INVALID = 2;
+  REGISTER_STATUS_ARGS_INVALID = 3;
+  REGISTER_STATUS_TOO_MANY_REQUESTS = 4;
+}
+
+message RegisterResponse {
+  RegisterStatus status = 1;
+  int32 user_id = 2;
+}
