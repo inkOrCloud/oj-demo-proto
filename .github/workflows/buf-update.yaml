@@ -1,0 +1,40 @@
+name: Buf Export Pipeline
+
+on:
+  push:
+    branches: [buf]  # 仅当 buf 分支有更新时触发
+
+jobs:
+  export-buf:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 必须开启写权限才能推送 export 分支
+    steps:
+      - name: Checkout code (buf branch)
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+
+      - name: Install buf CLI
+        run: npm install @bufbuild/buf
+
+      - name: Run buf export
+        run: npx buf export -o output  # 生成 output 目录
+
+      - name: Prepare export branch
+        run: |
+          # 确保 export 分支存在（不存在则创建）
+          git switch -c export || git switch export
+          # 清空分支所有文件（保留 .git 目录）
+          git rm -r .
+          # 从 buf 分支复制产物到工作目录
+          cp -r output/* ./
+          git add .
+
+      - name: Commit & Push to export branch
+        run: |
+          git commit -m "Update export from buf branch"
+          git push origin export
