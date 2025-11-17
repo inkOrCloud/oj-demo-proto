@@ -35,6 +35,11 @@ jobs:
           cp -r output/* ./
           git add .
 
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Commit & Push to export branch
         run: |
           git commit -m "Update export from buf branch"
