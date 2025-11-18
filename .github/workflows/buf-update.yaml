@@ -20,7 +20,7 @@ jobs:
           node-version: 'lts/*'
 
       - name: Install buf CLI
-        run: npm install @bufbuild/buf
+        run: npm install -g @bufbuild/buf
 
       - name: Run buf export
         run: npx buf export -o output  # 生成 output 目录
@@ -32,7 +32,8 @@ jobs:
           # 清空分支所有文件（保留 .git 目录）
           git rm -r .
           # 从 buf 分支复制产物到工作目录
-          cp -r output/* ./
+          mv -r output/* ./
+          rm -rf output
           git add .
 
       - name: Configure Git
