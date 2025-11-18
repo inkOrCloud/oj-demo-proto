@@ -32,7 +32,7 @@ jobs:
           # 清空分支所有文件（保留 .git 目录）
           git rm -r .
           # 从 buf 分支复制产物到工作目录
-          mv -r output/* ./
+          mv -f output/* ./
           rm -rf output
           git add .
 
