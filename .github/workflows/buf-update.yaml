@@ -26,7 +26,7 @@ jobs:
         run: npx buf export -o output  # 生成 output 目录
 
       - name: Archive exported files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v5
         with:
           name: exported-buf-artifact
           path: output/
@@ -44,7 +44,7 @@ jobs:
       - name: clean existing buf files
         run: git rm -r .
       - name: Download exported artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v6
         with:
           name: ${{ needs.export-buf.outputs.artifact-name }}
       - name: Commit and push changes
