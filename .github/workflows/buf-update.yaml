@@ -1,4 +1,4 @@
-name: Buf Export Pipeline
+name: Buf Update Pipeline
 
 on:
   workflow_dispatch:  # 允许手动触发
@@ -8,8 +8,8 @@ on:
 jobs:
   export-buf:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write  # 必须开启写权限才能推送 export 分支
+    outputs:
+      artifact-name: 'exported-buf-artifact'
     steps:
       - name: Checkout code (buf branch)
         uses: actions/checkout@v4
@@ -25,23 +25,32 @@ jobs:
       - name: Run buf export
         run: npx buf export -o output  # 生成 output 目录
 
-      - name: Prepare export branch
+      - name: Archive exported files
+        uses: actions/upload-artifact@v3
+        with:
+          name: exported-buf-artifact
+          path: output/
+
+  update-buf:
+    needs: export-buf
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 允许推送更改到仓库
+    steps:
+      - name: Checkout code (main branch)
+        uses: actions/checkout@v4
+        with:
+          ref: export
+      - name: clean existing buf files
+        run: git rm -r .
+      - name: Download exported artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ needs.export-buf.outputs.artifact-name }}
+      - name: Commit and push changes
         run: |
-          # 确保 export 分支存在（不存在则创建）
-          git switch -c export || git switch export
-          # 清空分支所有文件（保留 .git 目录）
-          git rm -r .
-          # 从 buf 分支复制产物到工作目录
-          mv -f output/* ./
-          rm -rf output
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add .
-
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Commit & Push to export branch
-        run: |
-          git commit -m "Update export from buf branch"
+          git commit -m 'Update exported buf files' || echo "No changes to commit"
           git push origin export
