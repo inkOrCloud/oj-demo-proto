@@ -6,7 +6,7 @@ import "buf/validate/validate.proto";
 message RegisterRequest {
   string email = 1;
   string password = 2 [
-    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.min_len = 6,
     (buf.validate.field).string.max_len = 20,
     (buf.validate.field).string.pattern = "^[a-zA-Z0-9!@#$%^&*_]+$"
   ];
@@ -24,4 +24,8 @@ enum RegisterStatus {
 message RegisterResponse {
   RegisterStatus status = 1;
   int32 user_id = 2;
+}
+
+service RegisterService {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
 }
