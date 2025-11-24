@@ -25,3 +25,7 @@ message RegisterResponse {
   RegisterStatus status = 1;
   int32 user_id = 2;
 }
+
+service RegisterService {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+}
