@@ -1,6 +1,8 @@
 syntax = "proto3";
 package oj.demo.user.v1;
 
+import "buf/validate/validate.proto";
+
 enum LoginType {
   LOGIN_TYPE_ID_UNSPECIFIED = 0;
   LOGIN_TYPE_EMAIL = 1;
@@ -9,10 +11,14 @@ enum LoginType {
 message LoginRequest {
   LoginType login_type = 1;
   oneof account {
-    int32 id = 2;
-    string email = 3;
+    int32 id = 2 [(buf.validate.field).int32.gt = 0];
+    string email = 3 [(buf.validate.field).string.email = true];
   }
-  string password = 4;
+  string password = 4 [
+    (buf.validate.field).string.min_len = 6,
+    (buf.validate.field).string.max_len = 20,
+    (buf.validate.field).string.pattern = "^[a-zA-Z0-9!@#$%^&*_]+$"
+  ];
 }
 
 enum LoginStatus {

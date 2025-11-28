@@ -1,10 +1,19 @@
 syntax = "proto3";
 package oj.demo.user.v1;
 
+import "buf/validate/validate.proto";
+
 message ChangePasswordRequest {
-  string old_password = 1;
-  string new_password = 2;
-  string refresh_token = 3;
+  string old_password = 1 [
+    (buf.validate.field).string.min_len = 6,
+    (buf.validate.field).string.max_len = 20,
+    (buf.validate.field).string.pattern = "^[a-zA-Z0-9!@#$%^&*_]+$"
+  ];
+  string new_password = 2 [
+    (buf.validate.field).string.min_len = 6,
+    (buf.validate.field).string.max_len = 20,
+    (buf.validate.field).string.pattern = "^[a-zA-Z0-9!@#$%^&*_]+$"
+  ];
 }
 
 enum ChangeStatus {

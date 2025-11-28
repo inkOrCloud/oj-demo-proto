@@ -1,6 +1,8 @@
 syntax = "proto3";
 package oj.demo.user.v1;
 
+import "buf/validate/validate.proto";
+
 enum AccountType {
   ACCOUNT_TYPE_UNSPECIFIED = 0;
   ACCOUNT_TYPE_ID = 1;
@@ -9,8 +11,12 @@ enum AccountType {
 
 message ResetPasswordRequest {
   AccountType type = 1;
-  string code = 2;
-  string new_password = 3;
+  string code = 2 [(buf.validate.field).string.pattern = "^[0-9a-zA-Z]{6}$"];
+  string new_password = 3 [
+    (buf.validate.field).string.min_len = 6,
+    (buf.validate.field).string.max_len = 20,
+    (buf.validate.field).string.pattern = "^[a-zA-Z0-9!@#$%^&*_]+$"
+  ];
   int64 timestamp = 4;
   int32 nonce = 5;
 }

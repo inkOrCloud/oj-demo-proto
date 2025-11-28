@@ -1,0 +1,6 @@
+syntax = "proto3";
+package oj.demo.user.email.v1;
+
+message SendEmailCodeRequest {
+  string email = 1;
+}
