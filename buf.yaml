@@ -2,6 +2,9 @@
 version: v2
 deps:
   - buf.build/bufbuild/protovalidate
+modules:
+  - path: .
+    name: buf.build/oj-demo/oj-demo-proto
 lint:
   use:
     - STANDARD
