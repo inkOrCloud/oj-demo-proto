@@ -23,7 +23,7 @@ jobs:
         run: npm install -g @bufbuild/buf
 
       - name: Run buf export
-        run: npx buf export -o output  # 生成 output 目录
+        run: npx buf dep update && npx buf export -o output  # 生成 output 目录
 
       - name: Archive exported files
         uses: actions/upload-artifact@v5
