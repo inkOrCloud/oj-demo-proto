@@ -11,12 +11,8 @@ enum LoginType {
 message LoginRequest {
   LoginType login_type = 1;
   oneof account {
-    int32 id = 2 [
-      (buf.validate.field).int32.gt = 0
-    ];
-    string email = 3 [
-      (buf.validate.field).string.email = true,
-    ];
+    int32 id = 2 [(buf.validate.field).int32.gt = 0];
+    string email = 3 [(buf.validate.field).string.email = true];
   }
   string password = 4 [
     (buf.validate.field).string.min_len = 6,
