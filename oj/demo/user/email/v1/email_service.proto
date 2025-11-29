@@ -1,6 +1,22 @@
 syntax = "proto3";
 package oj.demo.user.email.v1;
 
+import "buf/validate/validate.proto";
+
 message SendEmailCodeRequest {
-  string email = 1;
+  string email = 1 [(buf.validate.field).string.email = true];
+}
+
+enum EmailSendStatus {
+  EMAIL_SEND_STATUS_UNSPECIFIED = 0;
+  EMAIL_SEND_STATUS_SENT = 1;
+  EMAIL_SEND_STATUS_FAILED = 2;
+}
+
+message SendEmailCodeResponse {
+  EmailSendStatus status = 1;
+}
+
+service EmailService {
+  rpc SendEmailCode(SendEmailCodeRequest) returns (SendEmailCodeResponse);
 }
