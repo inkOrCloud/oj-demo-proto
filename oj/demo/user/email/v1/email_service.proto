@@ -11,6 +11,7 @@ enum EmailSendStatus {
   EMAIL_SEND_STATUS_UNSPECIFIED = 0;
   EMAIL_SEND_STATUS_SENT = 1;
   EMAIL_SEND_STATUS_FAILED = 2;
+  EMAIL_SEND_STATUS_RATE_LIMITED = 3;
 }
 
 message SendEmailCodeResponse {
