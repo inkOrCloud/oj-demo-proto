@@ -1,0 +1,103 @@
+syntax = "proto3";
+package oj.demo.file.v1;
+
+import "oj/demo/file/v1/file.proto";
+
+message UploadFileTask {
+  int64 id = 1;
+  int32 user_id = 2;
+  string filename = 3;
+  string path = 4;
+  int64 size = 5;
+  string mime_type = 6;
+  string token = 7;
+  bool mutipart = 8;
+  repeated string upload_urls = 9;
+  int64 create_time = 11;
+  int64 last_process_time = 12;
+}
+
+message CreateUploadFileTaskRequest {
+  int32 user_id = 1;
+  string filename = 2;
+  int64 size = 4;
+  string mime_type = 5;
+  HashType hash_type = 7;
+  string hash = 8;
+}
+
+enum UploadFileTaskStatus {
+  UPLOAD_FILE_TASK_STATUS_UNSPECIFIED = 0;
+  UPLOAD_FILE_TASK_STATUS_SUCCESS = 1;
+  UPLOAD_FILE_TASK_STATUS_FAILED = 2;
+  UPLOAD_FILE_TASK_STATUS_FILE_IS_EXIST = 3;
+  UPLOAD_FILE_TASK_STATUS_SIZE_EXCEED_LIMIT = 4;
+}
+
+message CreateUploadFileTaskResponse {
+  UploadFileTaskStatus status = 2;
+  oneof result {
+    UploadFileTask upload_file_task = 1;
+    FileInfo file_info = 3;
+  }
+}
+
+message FinishUploadFileTaskRequest {
+  int64 upload_file_task_id = 1;
+  bool success = 2;
+}
+
+enum FinishUploadFileTaskStatus {
+  FINISH_UPLOAD_FILE_TASK_STATUS_UNSPECIFIED = 0;
+  FINISH_UPLOAD_FILE_TASK_STATUS_SUCCESS = 1;
+  FINISH_UPLOAD_FILE_TASK_STATUS_FAILED = 2;
+  FINISH_UPLOAD_FILE_TASK_STATUS_SIZE_INVALID = 3;
+  FINISH_UPLOAD_FILE_TASK_STATUS_HASH_MISMATCH = 4;
+  FINISH_UPLOAD_FILE_TASK_STATUS_PERMISSION_DENIED = 5;
+}
+
+message FinishUploadFileTaskResponse {
+  FinishUploadFileTaskStatus status = 1;
+  optional FileInfo file_info = 2;
+}
+
+message GetFileGetUrlRequest {
+  int64 file_id = 1;
+  string token = 2;
+  bool pre_sign = 3;
+}
+
+enum GetFileGetUrlStatus {
+  GET_FILE_GET_URL_STATUS_UNSPECIFIED = 0;
+  GET_FILE_GET_URL_STATUS_SUCCESS = 1;
+  GET_FILE_GET_URL_STATUS_FILE_NOT_FOUND = 2;
+  GET_FILE_GET_URL_STATUS_PERMISSION_DENIED = 3;
+}
+
+message GetFileGetUrlResponse {
+  GetFileGetUrlStatus status = 1;
+  string url = 2;
+}
+
+message DeleteFileRequest {
+  int64 file_id = 1;
+}
+
+enum DeleteFileStatus {
+  DELETE_FILE_STATUS_UNSPECIFIED = 0;
+  DELETE_FILE_STATUS_SUCCESS = 1;
+  DELETE_FILE_STATUS_FILE_NOT_FOUND = 2;
+  DELETE_FILE_STATUS_PERMISSION_DENIED = 3;
+}
+
+message DeleteFileResponse {
+  DeleteFileStatus status = 1;
+  int64 expire_time = 2;
+}
+
+service FileService {
+  rpc CreateUploadFileTask(CreateUploadFileTaskRequest) returns (CreateUploadFileTaskResponse);
+  rpc FinishUploadFileTask(FinishUploadFileTaskRequest) returns (FinishUploadFileTaskResponse);
+  rpc GetFileGetUrl(GetFileGetUrlRequest) returns (GetFileGetUrlResponse);
+  rpc DeleteFile(DeleteFileRequest) returns (DeleteFileResponse);
+}

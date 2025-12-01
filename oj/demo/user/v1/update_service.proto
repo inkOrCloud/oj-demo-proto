@@ -19,7 +19,22 @@ message UpdateProfileResponse {
   UserProfile profile = 2;
 }
 
-service UpdateService {
+message GetProfileRequest {
+  int32 user_id = 1;
+}
+
+enum GetProfileStatus {
+  GET_PROFILE_STATUS_SUCCESS_UNSPECIFIED = 0;
+  GET_PROFILE_STATUS_NOT_FOUND = 1;
+  GET_PROFILE_STATUS_PERMISSION_DENIED = 2;
+}
+
+message GetProfileResponse {
+  UserProfile profile = 1;
+}
+
+service UpdateProfileService {
+  rpc GetProfile(GetProfileRequest) returns (GetProfileResponse);
   rpc UpdateProfile(UserProfile) returns (UpdateProfileResponse);
   rpc UpdateAvatar(UpdateAvatarRequest) returns (UpdateProfileResponse);
 }

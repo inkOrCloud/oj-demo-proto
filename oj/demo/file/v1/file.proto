@@ -1,0 +1,25 @@
+syntax = "proto3";
+package oj.demo.file.v1;
+
+enum HashType {
+  HASH_TYPE_UNSPECIFIED = 0;
+  HASH_TYPE_MD5 = 1;
+  HASH_TYPE_BLAKE3 = 2;
+  HASH_TYPE_SHA256 = 3;
+  HASH_TYPE_SHA512 = 4;
+}
+
+message FileInfo {
+  int64 id = 1;
+  int32 user_id = 2;
+  string filename = 3;
+  string path = 4;
+  int64 size = 5;
+  string mime_type = 6;
+  bytes hash = 7;
+  HashType hash_type = 8;
+  string token = 9;
+  int64 create_time = 10;
+  int64 update_time = 11;
+  int64 delete_time = 12;
+}
