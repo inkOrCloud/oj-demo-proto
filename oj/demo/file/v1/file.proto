@@ -21,5 +21,5 @@ message FileInfo {
   string token = 9;
   int64 create_time = 10;
   int64 update_time = 11;
-  int64 delete_time = 12;
+  optional int64 delete_time = 12;
 }
