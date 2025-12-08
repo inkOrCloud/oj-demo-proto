@@ -14,7 +14,7 @@ message UploadFileTask {
   bool mutipart = 8;
   repeated string upload_urls = 9;
   int64 create_time = 11;
-  int64 last_process_time = 12;
+  int64 expire_time = 12;
 }
 
 message CreateUploadFileTaskRequest {
@@ -23,7 +23,7 @@ message CreateUploadFileTaskRequest {
   int64 size = 4;
   string mime_type = 5;
   HashType hash_type = 7;
-  string hash = 8;
+  bytes hash = 8;
 }
 
 enum UploadFileTaskStatus {
@@ -95,9 +95,17 @@ message DeleteFileResponse {
   int64 expire_time = 2;
 }
 
+message GetUploadFileTaskRequest {
+  int64 upload_file_task_id = 1;
+}
+message GetUploadFileTaskResponse {
+  optional UploadFileTask upload_file_task = 1;
+}
+
 service FileService {
   rpc CreateUploadFileTask(CreateUploadFileTaskRequest) returns (CreateUploadFileTaskResponse);
   rpc FinishUploadFileTask(FinishUploadFileTaskRequest) returns (FinishUploadFileTaskResponse);
   rpc GetFileGetUrl(GetFileGetUrlRequest) returns (GetFileGetUrlResponse);
   rpc DeleteFile(DeleteFileRequest) returns (DeleteFileResponse);
+  rpc GetUploadFileTask(GetUploadFileTaskRequest) returns (GetUploadFileTaskResponse);
 }
