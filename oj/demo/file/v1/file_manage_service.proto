@@ -4,15 +4,8 @@ package oj.demo.file.v1;
 import "oj/demo/file/v1/file.proto";
 
 message UploadFileTask {
-  int64 id = 1;
-  int32 user_id = 2;
-  string filename = 3;
-  string path = 4;
-  int64 size = 5;
-  string mime_type = 6;
-  string token = 7;
-  bool mutipart = 8;
-  repeated string upload_urls = 9;
+  FileInfo file_info = 2;
+  string upload_url = 9;
   int64 create_time = 11;
   int64 expire_time = 12;
 }
@@ -24,6 +17,7 @@ message CreateUploadFileTaskRequest {
   string mime_type = 5;
   HashType hash_type = 7;
   bytes hash = 8;
+  bool has_token = 9;
 }
 
 enum UploadFileTaskStatus {
@@ -32,6 +26,7 @@ enum UploadFileTaskStatus {
   UPLOAD_FILE_TASK_STATUS_FAILED = 2;
   UPLOAD_FILE_TASK_STATUS_FILE_IS_EXIST = 3;
   UPLOAD_FILE_TASK_STATUS_SIZE_EXCEED_LIMIT = 4;
+  UPLOAD_FILE_TASK_STATUS_TASK_HAS_EXIST = 5;
 }
 
 message CreateUploadFileTaskResponse {
@@ -102,9 +97,25 @@ message GetUploadFileTaskResponse {
   optional UploadFileTask upload_file_task = 1;
 }
 
+message AbortUploadFileTaskRequest {
+  int64 upload_file_task_id = 1;
+}
+
+enum AbortUploadFileTaskStatus {
+  ABORT_UPLOAD_FILE_TASK_STATUS_UNSPECIFIED = 0;
+  ABORT_UPLOAD_FILE_TASK_STATUS_SUCCESS = 1;
+  ABORT_UPLOAD_FILE_TASK_STATUS_TASK_NOT_FOUND = 2;
+  ABORT_UPLOAD_FILE_TASK_STATUS_PERMISSION_DENIED = 3;
+}
+
+message AbortUploadFileTaskResponse {
+  AbortUploadFileTaskStatus status = 1;
+}
+
 service FileService {
   rpc CreateUploadFileTask(CreateUploadFileTaskRequest) returns (CreateUploadFileTaskResponse);
   rpc FinishUploadFileTask(FinishUploadFileTaskRequest) returns (FinishUploadFileTaskResponse);
+  rpc AbortUploadFileTask(AbortUploadFileTaskRequest) returns (AbortUploadFileTaskResponse);
   rpc GetFileGetUrl(GetFileGetUrlRequest) returns (GetFileGetUrlResponse);
   rpc DeleteFile(DeleteFileRequest) returns (DeleteFileResponse);
   rpc GetUploadFileTask(GetUploadFileTaskRequest) returns (GetUploadFileTaskResponse);
