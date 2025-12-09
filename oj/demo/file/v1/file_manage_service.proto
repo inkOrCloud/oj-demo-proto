@@ -5,9 +5,9 @@ import "oj/demo/file/v1/file.proto";
 
 message UploadFileTask {
   FileInfo file_info = 2;
-  string upload_url = 9;
-  int64 create_time = 11;
-  int64 expire_time = 12;
+  string upload_url = 3;
+  int64 create_time = 4;
+  int64 expire_time = 5;
 }
 
 message CreateUploadFileTaskRequest {
