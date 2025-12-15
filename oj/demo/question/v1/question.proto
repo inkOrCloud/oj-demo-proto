@@ -1,0 +1,22 @@
+syntax = "proto3";
+package oj.demo.question.v1;
+
+message Question {
+  int32 id = 1;
+  string title = 2;
+  string content = 3;
+  int64 created_time = 4;
+  int64 updated_time = 5;
+  int64 delete_time = 6;
+}
+
+message TestInstance {
+  int32 id = 1;
+  int32 question_id = 2;
+  int32 sort = 3;
+  string input = 4;
+  string output = 5;
+  int64 created_time = 6;
+  int64 updated_time = 7;
+  int64 delete_time = 8;
+}
