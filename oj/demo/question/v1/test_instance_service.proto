@@ -1,0 +1,93 @@
+syntax = "proto3";
+package oj.demo.question.v1;
+
+import "oj/demo/question/v1/question.proto";
+
+message CreateTestInstanceRequest {
+  TestInstance test_instance = 1;
+}
+
+enum CreateTestInstanceResponseStatus {
+  CREATE_TEST_INSTANCE_RESPONSE_STATUS_UNSPECIFIED = 0;
+  CREATE_TEST_INSTANCE_RESPONSE_STATUS_SUCCESS = 1;
+  CREATE_TEST_INSTANCE_RESPONSE_STATUS_NOT_FOUND_QUESTION = 2;
+  CREATE_TEST_INSTANCE_RESPONSE_STATUS_ARG_INVALID = 3;
+}
+
+message CreateTestInstanceResponse {
+  CreateTestInstanceResponseStatus status = 1;
+  TestInstance test_instance = 2;
+}
+
+message GetTestInstanceRequest {
+  int32 id = 1;
+}
+
+enum GetTestInstanceResponseStatus {
+  GET_TEST_INSTANCE_RESPONSE_STATUS_UNSPECIFIED = 0;
+  GET_TEST_INSTANCE_RESPONSE_STATUS_SUCCESS = 1;
+  GET_TEST_INSTANCE_RESPONSE_STATUS_NOT_FOUND = 2;
+  GET_TEST_INSTANCE_RESPONSE_STATUS_ARG_INVALID = 3;
+}
+
+message GetTestInstanceResponse {
+  GetTestInstanceResponseStatus status = 1;
+  TestInstance test_instance = 2;
+}
+
+message UpdateTestInstanceRequest {
+  // 使用 test_instance.id 定位；服务端更新被设置的字段
+  TestInstance test_instance = 1;
+}
+
+enum UpdateTestInstanceResponseStatus {
+  UPDATE_TEST_INSTANCE_RESPONSE_STATUS_UNSPECIFIED = 0;
+  UPDATE_TEST_INSTANCE_RESPONSE_STATUS_SUCCESS = 1;
+  UPDATE_TEST_INSTANCE_RESPONSE_STATUS_NOT_FOUND = 2;
+  UPDATE_TEST_INSTANCE_RESPONSE_STATUS_ARG_INVALID = 3;
+}
+
+message UpdateTestInstanceResponse {
+  UpdateTestInstanceResponseStatus status = 1;
+  // 更新后的实体
+  TestInstance test_instance = 2;
+}
+
+message DeleteTestInstanceRequest {
+  int32 id = 1;
+}
+
+enum DeleteTestInstanceResponseStatus {
+  DELETE_TEST_INSTANCE_RESPONSE_STATUS_UNSPECIFIED = 0;
+  DELETE_TEST_INSTANCE_RESPONSE_STATUS_SUCCESS = 1;
+  DELETE_TEST_INSTANCE_RESPONSE_STATUS_NOT_FOUND = 2;
+  DELETE_TEST_INSTANCE_RESPONSE_STATUS_ARG_INVALID = 3;
+}
+
+message DeleteTestInstanceResponse {
+  DeleteTestInstanceResponseStatus status = 1;
+}
+
+message GetTestInstancesWithQuestionIdRequest {
+  int32 question_id = 1;
+}
+
+enum GetTestInstancesWithQuestionIdResponseStatus {
+  GET_TEST_INSTANCES_WITH_QUESTION_ID_RESPONSE_STATUS_UNSPECIFIED = 0;
+  GET_TEST_INSTANCES_WITH_QUESTION_ID_RESPONSE_STATUS_SUCCESS = 1;
+  GET_TEST_INSTANCES_WITH_QUESTION_ID_RESPONSE_STATUS_NOT_FOUND_QUESTION = 2;
+  GET_TEST_INSTANCES_WITH_QUESTION_ID_RESPONSE_STATUS_ARG_INVALID = 3;
+}
+
+message GetTestInstancesWithQuestionIdResponse {
+  GetTestInstancesWithQuestionIdResponseStatus status = 1;
+  repeated TestInstance test_instances = 2;
+}
+
+service TestInstanceService {
+  rpc CreateTestInstance(CreateTestInstanceRequest) returns (CreateTestInstanceResponse);
+  rpc GetTestInstance(GetTestInstanceRequest) returns (GetTestInstanceResponse);
+  rpc UpdateTestInstance(UpdateTestInstanceRequest) returns (UpdateTestInstanceResponse);
+  rpc DeleteTestInstance(DeleteTestInstanceRequest) returns (DeleteTestInstanceResponse);
+  rpc GetTestInstancesWithQuestionId(GetTestInstancesWithQuestionIdRequest) returns (GetTestInstancesWithQuestionIdResponse);
+}
