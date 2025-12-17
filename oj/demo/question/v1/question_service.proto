@@ -1,0 +1,74 @@
+syntax = "proto3";
+package oj.demo.question.v1;
+
+import "oj/demo/question/v1/question.proto";
+
+message CreateQuestionRequest {
+  Question question = 1;
+}
+
+enum CreateQuestionStatus {
+  CREATE_QUESTION_STATUS_UNSPECIFIED = 0;
+  CREATE_QUESTION_STATUS_SUCCESS = 1;
+  CREATE_QUESTION_STATUS_ARG_INVALID = 2;
+}
+
+message CreateQuestionResponse {
+  CreateQuestionStatus status = 1;
+  Question question = 2;
+}
+
+message GetQuestionRequest {
+  int64 question_id = 1;
+}
+
+enum GetQuestionStatus {
+  GET_QUESTION_STATUS_UNSPECIFIED = 0;
+  GET_QUESTION_STATUS_SUCCESS = 1;
+  GET_QUESTION_STATUS_NOT_FOUND = 2;
+  GET_QUESTION_STATUS_ARG_INVALID = 3;
+}
+
+message GetQuestionResponse {
+  GetQuestionStatus status = 1;
+  Question question = 2;
+}
+
+message DeleteQuestionRequest {
+  int64 question_id = 1;
+}
+
+enum DeleteQuestionStatus {
+  DELETE_QUESTION_STATUS_UNSPECIFIED = 0;
+  DELETE_QUESTION_STATUS_SUCCESS = 1;
+  DELETE_QUESTION_STATUS_NOT_FOUND = 2;
+  DELETE_QUESTION_STATUS_ARG_INVALID = 3;
+}
+
+message DeleteQuestionResponse {
+  DeleteQuestionStatus status = 1;
+  Question question = 2;
+}
+
+message UpdateQuestionRequest {
+  Question question = 1;
+}
+
+enum UpdateQuestionStatus {
+  UPDATE_QUESTION_STATUS_UNSPECIFIED = 0;
+  UPDATE_QUESTION_STATUS_SUCCESS = 1;
+  UPDATE_QUESTION_STATUS_NOT_FOUND = 2;
+  UPDATE_QUESTION_STATUS_ARG_INVALID = 3;
+}
+
+message UpdateQuestionResponse {
+  UpdateQuestionStatus status = 1;
+  Question question = 2;
+}
+
+service QuestionService {
+  rpc CreateQuestion(CreateQuestionRequest) returns (CreateQuestionResponse);
+  rpc GetQuestion(GetQuestionRequest) returns (GetQuestionResponse);
+  rpc UpdateQuestion(UpdateQuestionRequest) returns (UpdateQuestionResponse);
+  rpc DeleteQuestion(DeleteQuestionRequest) returns (DeleteQuestionResponse);
+}

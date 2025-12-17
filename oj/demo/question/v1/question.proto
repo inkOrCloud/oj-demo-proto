@@ -7,7 +7,7 @@ message Question {
   string content = 3;
   int64 created_time = 4;
   int64 updated_time = 5;
-  int64 delete_time = 6;
+  optional int64 delete_time = 6;
 }
 
 message TestInstance {
@@ -18,5 +18,40 @@ message TestInstance {
   string output = 5;
   int64 created_time = 6;
   int64 updated_time = 7;
-  int64 delete_time = 8;
+  optional int64 delete_time = 8;
+}
+
+enum SubmissionStatus {
+  SUBMISSION_STATUS_UNSPECIFIED = 0;
+  SUBMISSION_STATUS_PENDING = 1;
+  SUBMISSION_STATUS_SUCCESSED = 2;
+  SUBMISSION_STATUS_TIMEOUT = 3;
+  SUBMISSION_STATUS_RUNTIME_ERROR = 4;
+  SUBMISSION_STATUS_COMPILE_ERROR = 5;
+  SUBMISSION_STATUS_WRONG_ANSWER = 6;
+  SUBMISSION_STATUS_MEMORY_LIMIT_EXCEEDED = 7;
+  SUBMISSION_STATUS_INTERNAL_ERROR = 8;
+}
+
+enum SubmissionLanguage {
+  SUBMISSION_LANGUAGE_UNSPECIFIED = 0;
+  SUBMISSION_LANGUAGE_JAVA = 1;
+  SUBMISSION_LANGUAGE_GO = 2;
+}
+
+message Submission {
+  int32 id = 1;
+  int32 question_id = 2;
+  int32 user_id = 3;
+  string code = 4;
+  SubmissionLanguage language = 5;
+  SubmissionStatus status = 6;
+  int32 total_test_instances = 7;
+  int32 passed_test_instances = 8;
+  Submission fail_test_instance = 9;
+  int32 time_cost = 10;
+  int32 memory_cost = 11;
+  int64 created_time = 12;
+  int64 updated_time = 13;
+  optional int64 delete_time = 14;
 }

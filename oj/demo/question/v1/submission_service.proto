@@ -1,0 +1,58 @@
+syntax = "proto3";
+package oj.demo.question.v1;
+
+message CreateSubmissionRequest {
+  int32 question_id = 1;
+  string code = 2;
+  SubmissionLanguage language = 3;
+}
+
+enum CreateSubmissionResponseStatus {
+  CREATE_SUBMISSION_RESPONSE_STATUS_UNSPECIFIED = 0;
+  CREATE_SUBMISSION_RESPONSE_STATUS_SUCCESSED = 1;
+  CREATE_SUBMISSION_RESPONSE_STATUS_FAILED = 2;
+}
+
+message CreateSubmissionResponse {
+  CreateSubmissionResponseStatus status = 1;
+  Submission submission = 2;
+}
+
+message CheckSubmissionRequest {
+  int32 submission_id = 1;
+}
+
+enum CheckSubmissionResponseStatus {
+  CHECK_SUBMISSION_RESPONSE_STATUS_UNSPECIFIED = 0;
+  CHECK_SUBMISSION_RESPONSE_STATUS_SUCCESSED = 1;
+  CHECK_SUBMISSION_RESPONSE_STATUS_NOT_FOUND = 2;
+  CHECK_SUBMISSION_RESPONSE_STATUS_PENDING = 3;
+  CHECK_SUBMISSION_RESPONSE_STATUS_ARG_INVALID = 4;
+}
+
+message CheckSubmissionResponse {
+  CheckSubmissionResponseStatus status = 1;
+  Submission submission = 2;
+}
+
+message GetSubmissionsWithQuestionRequest {
+  int32 question_id = 1;
+}
+
+enum GetSubmissionsWithQuestionResponseStatus {
+  GET_SUBMISSIONS_WITH_QUESTION_RESPONSE_STATUS_UNSPECIFIED = 0;
+  GET_SUBMISSIONS_WITH_QUESTION_RESPONSE_STATUS_SUCCESSED = 1;
+  GET_SUBMISSIONS_WITH_QUESTION_RESPONSE_STATUS_NOT_FOUND = 2;
+  GET_SUBMISSIONS_WITH_QUESTION_RESPONSE_STATUS_ARG_INVALID = 3;
+}
+
+message GetSubmissionsWithQuestionResponse {
+  GetSubmissionsWithQuestionResponseStatus status = 1;
+  repeated Submission submissions = 2;
+}
+
+service SubmissionService {
+  rpc CreateSubmission(CreateSubmissionRequest) returns (CreateSubmissionResponse);
+  rpc CheckSubmission(CheckSubmissionRequest) returns (CheckSubmissionResponse);
+  rpc GetSubmissionsWithQuestion(GetSubmissionsWithQuestionRequest) returns (GetSubmissionsWithQuestionResponse);
+}
