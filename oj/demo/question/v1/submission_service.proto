@@ -1,6 +1,8 @@
 syntax = "proto3";
 package oj.demo.question.v1;
 
+import "oj/demo/question/v1/question.proto";
+
 message CreateSubmissionRequest {
   int32 question_id = 1;
   string code = 2;
