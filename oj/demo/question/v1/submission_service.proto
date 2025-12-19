@@ -1,10 +1,11 @@
 syntax = "proto3";
 package oj.demo.question.v1;
 
+import "buf/validate/validate.proto";
 import "oj/demo/question/v1/question.proto";
 
 message CreateSubmissionRequest {
-  int32 question_id = 1;
+  int32 question_id = 1 [(buf.validate.field).int32.gt = 0];
   string code = 2;
   SubmissionLanguage language = 3;
 }
@@ -21,7 +22,7 @@ message CreateSubmissionResponse {
 }
 
 message CheckSubmissionRequest {
-  int32 submission_id = 1;
+  int32 submission_id = 1 [(buf.validate.field).int32.gt = 0];
 }
 
 enum CheckSubmissionResponseStatus {
@@ -38,7 +39,7 @@ message CheckSubmissionResponse {
 }
 
 message GetSubmissionsWithQuestionRequest {
-  int32 question_id = 1;
+  int32 question_id = 1 [(buf.validate.field).int32.gt = 0];
 }
 
 enum GetSubmissionsWithQuestionResponseStatus {
