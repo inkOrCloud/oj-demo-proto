@@ -56,6 +56,6 @@ message GetSubmissionsWithQuestionResponse {
 
 service SubmissionService {
   rpc CreateSubmission(CreateSubmissionRequest) returns (CreateSubmissionResponse);
-  rpc CheckSubmission(CheckSubmissionRequest) returns (CheckSubmissionResponse);
+  rpc CheckSubmission(CheckSubmissionRequest) returns (stream CheckSubmissionResponse);
   rpc GetSubmissionsWithQuestion(GetSubmissionsWithQuestionRequest) returns (GetSubmissionsWithQuestionResponse);
 }
