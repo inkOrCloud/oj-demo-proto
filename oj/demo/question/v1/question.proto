@@ -48,7 +48,7 @@ message Submission {
   SubmissionStatus status = 6;
   int32 total_test_instances = 7;
   int32 passed_test_instances = 8;
-  Submission fail_test_instance = 9;
+  TestInstance fail_test_instance = 9;
   int32 time_cost = 10;
   int32 memory_cost = 11;
   int64 created_time = 12;
