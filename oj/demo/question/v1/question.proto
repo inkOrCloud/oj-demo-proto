@@ -5,8 +5,8 @@ message Question {
   int32 id = 1;
   string title = 2;
   string content = 3;
-  int64 created_time = 4;
-  int64 updated_time = 5;
+  int64 create_time = 4;
+  int64 update_time = 5;
   optional int64 delete_time = 6;
 }
 
@@ -16,8 +16,8 @@ message TestInstance {
   int32 sort = 3;
   string input = 4;
   string output = 5;
-  int64 created_time = 6;
-  int64 updated_time = 7;
+  int64 create_time = 6;
+  int64 update_time = 7;
   optional int64 delete_time = 8;
 }
 
@@ -51,7 +51,7 @@ message Submission {
   TestInstance fail_test_instance = 9;
   int32 time_cost = 10;
   int32 memory_cost = 11;
-  int64 created_time = 12;
-  int64 updated_time = 13;
+  int64 create_time = 12;
+  int64 update_time = 13;
   optional int64 delete_time = 14;
 }
