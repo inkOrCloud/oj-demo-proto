@@ -50,7 +50,7 @@ message Submission {
   int32 total_test_instances = 7;
   int32 passed_test_instances = 8;
   TestInstance fail_test_instance = 9;
-  string fail_test_instance_output = 10;
+  string message = 10;
   int32 time_cost = 11;
   int32 memory_cost = 12;
   int64 create_time = 13;
