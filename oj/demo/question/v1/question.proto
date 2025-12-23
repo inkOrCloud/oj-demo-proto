@@ -37,6 +37,7 @@ enum SubmissionLanguage {
   SUBMISSION_LANGUAGE_UNSPECIFIED = 0;
   SUBMISSION_LANGUAGE_JAVA = 1;
   SUBMISSION_LANGUAGE_GO = 2;
+  SUBMISSION_LANGUAGE_PYTHON = 3;
 }
 
 message Submission {
@@ -49,9 +50,10 @@ message Submission {
   int32 total_test_instances = 7;
   int32 passed_test_instances = 8;
   TestInstance fail_test_instance = 9;
-  int32 time_cost = 10;
-  int32 memory_cost = 11;
-  int64 create_time = 12;
-  int64 update_time = 13;
-  optional int64 delete_time = 14;
+  string fail_test_instance_output = 10;
+  int32 time_cost = 11;
+  int32 memory_cost = 12;
+  int64 create_time = 13;
+  int64 update_time = 14;
+  optional int64 delete_time = 15;
 }
