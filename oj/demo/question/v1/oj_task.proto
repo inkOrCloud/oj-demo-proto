@@ -6,4 +6,6 @@ import "oj/demo/question/v1/question.proto";
 message Task {
   Submission submission = 1;
   repeated TestInstance test_instances = 2;
+  int64 time_limit_ms = 3;
+  int64 memory_limit_bytes = 4;
 }
